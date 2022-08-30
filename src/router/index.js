@@ -24,6 +24,12 @@ const routes = [
     name: "AccountView",
     component: () => import("../views/Business/AccountView.vue"),
   },
+
+  {
+    path: "/products",
+    name: "ProductView",
+    component: () => import("../views/Business/ProductsView.vue"),
+  },
 ];
 
 const router = createRouter({
