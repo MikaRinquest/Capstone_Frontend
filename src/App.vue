@@ -1,14 +1,16 @@
 <template>
   <div class="holder">
     <router-view class="content" />
-    <BusinessNavbar />
+    <UserNavbar />
   </div>
 </template>
 <script>
 import BusinessNavbar from "../src/components/Navbars/BusinessNavbar.vue";
+import UserNavbar from "../src/components/Navbars/UserNavbar.vue";
 export default {
   components: {
     BusinessNavbar,
+    UserNavbar,
   },
 };
 </script>

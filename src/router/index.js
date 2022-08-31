@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "Login",
     component: () => import("../views/start/Login.vue"),
   },
@@ -29,6 +29,24 @@ const routes = [
     path: "/products",
     name: "ProductView",
     component: () => import("../views/Business/ProductsView.vue"),
+  },
+
+  {
+    path: "/",
+    name: "HomeView",
+    component: () => import("@/views/User/HomeView.vue"),
+  },
+
+  {
+    path: "/allproducts",
+    name: "Products",
+    component: () => import("@/views/User/ProductsView.vue"),
+  },
+
+  {
+    path: "/single",
+    name: "Single",
+    component: () => import("@/views/User/SingleCardView.vue"),
   },
 ];
 

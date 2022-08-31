@@ -13,7 +13,7 @@
         <button type="submit" class="btn">Register</button>
       </form>
     </div>
-    <p>Already registered? Click <router-link to="/">here</router-link></p>
+    <p>Already registered? Click <router-link to="/login">here</router-link></p>
   </div>
 </template>
 <script>

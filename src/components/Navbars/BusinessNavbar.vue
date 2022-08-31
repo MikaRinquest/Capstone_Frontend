@@ -16,7 +16,9 @@
       Add new product
     </button>
     <button class="link btn">Delete product</button>
-    <router-link to="/"><button class="link btn">Log Out</button></router-link>
+    <router-link to="/login"
+      ><button class="link btn">Log Out</button></router-link
+    >
     <!-- Button trigger modal -->
 
     <!-- Modal -->
