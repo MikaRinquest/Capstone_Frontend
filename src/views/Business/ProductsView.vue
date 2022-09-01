@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import ProductCard from "@/components/Business/BusinessPages/ProductCard.vue";
+import ProductCard from "@/components/Business/ProductCard.vue";
 export default {
   components: {
     ProductCard,

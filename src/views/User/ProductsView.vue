@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import Products from "@/components/User/UserPages/Products.vue";
+import Products from "@/components/User/Products.vue";
 export default {
   components: {
     Products,

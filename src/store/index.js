@@ -34,5 +34,12 @@ export default createStore({
           context.commit("setProducts", products);
         });
     },
+
+    // Single View
+    getProduct: async (context, id) => {
+      fetch("https://capstone-ecom.herokuapp.com/products/" + id)
+        .then((res) => res.json())
+        .then((product) => context.commit("setProduct", product));
+    },
   },
 });

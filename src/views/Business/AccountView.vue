@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import Account from "../../components/Business/BusinessPages/Account.vue";
+import Account from "../../components/Business/Account.vue";
 export default {
   components: {
     Account,

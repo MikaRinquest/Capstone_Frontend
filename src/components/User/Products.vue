@@ -7,7 +7,10 @@
       <p>{{ product.price }}</p>
     </div>
     <div class="router1">
-      <router-link to="/single" class="router1">
+      <router-link
+        :to="{ name: 'SingleCardView', params: { id: product.p_id } }"
+        class="router2"
+      >
         <p class="single d-none">Click on me for more information</p>
       </router-link>
     </div>
@@ -26,7 +29,7 @@ export default {
   margin-top: 5px;
 }
 
-.card:hover > .router > .single {
+.card:hover > .router1 > .router2 > .single {
   display: block !important;
 }
 
