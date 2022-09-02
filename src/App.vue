@@ -31,10 +31,11 @@ export default {
 
 .holder {
   display: flex;
+  height: 100vh;
 }
 
 .content {
-  max-width: 85vw;
+  min-width: 85%;
 }
 
 nav {

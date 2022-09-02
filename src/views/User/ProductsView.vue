@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap">
+  <div class="con d-flex flex-wrap">
     <Products
       v-for="product in products"
       :key="product.p_id"
@@ -25,4 +25,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.con {
+  background-color: #042069;
+}
+</style>

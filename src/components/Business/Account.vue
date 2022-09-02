@@ -74,15 +74,18 @@ export default {};
   justify-content: center;
   align-items: center;
   min-width: 85vw;
+  background-color: #042069;
 }
 
 .link {
   width: 300px;
   margin-bottom: 10px;
+  border-radius: 50%;
 }
 
 .text {
   margin-bottom: 5px;
+  color: #dbdbdb;
 }
 
 .btn {

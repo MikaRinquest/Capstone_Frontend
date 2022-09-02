@@ -46,8 +46,26 @@ const routes = [
   {
     path: "/allproducts/:id",
     name: "SingleCardView",
-    component: () => import("@/views/User/SingleCardView.vue"),
+    component: () => import("@/views/User/SingleProductView.vue"),
     props: true, //allows us to accept a route parameter as a prop
+  },
+
+  {
+    path: "/cart",
+    name: "CartView",
+    component: () => import("@/views/User/CartView.vue"),
+  },
+
+  {
+    path: "/checkout",
+    name: "CheckoutView",
+    component: () => import("@/views/User/Checkout.vue"),
+  },
+
+  {
+    path: "/contact",
+    name: "ContactView",
+    component: () => import("@/views/User/ContactView.vue"),
   },
 ];
 

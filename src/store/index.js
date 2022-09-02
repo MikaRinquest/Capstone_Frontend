@@ -6,6 +6,7 @@ export default createStore({
     products: null,
     product: null,
     cart: [],
+    businesses: null,
   },
   mutations: {
     // Get user
@@ -24,8 +25,14 @@ export default createStore({
     setCart: (state, cart) => {
       state.cart = cart;
     },
+
+    // Get Businesses
+    setBusinesses: (state, businesses) => {
+      state.businesses = businesses;
+    },
   },
   actions: {
+    // User functions
     //  Get all products
     getProducts: async (context) => {
       fetch("https://capstone-ecom.herokuapp.com/products")
@@ -35,11 +42,20 @@ export default createStore({
         });
     },
 
-    // Single View
+    // Single View Product
     getProduct: async (context, id) => {
       fetch("https://capstone-ecom.herokuapp.com/products/" + id)
         .then((res) => res.json())
         .then((product) => context.commit("setProduct", product));
+    },
+
+    // Get businesses
+    getBusinesses: async (context) => {
+      fetch("https://capstone-ecom.herokuapp.com/business")
+        .then((res) => res.json())
+        .then((business) => {
+          context.commit("setBusinesses", business);
+        });
     },
   },
 });
