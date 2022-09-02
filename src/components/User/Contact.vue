@@ -23,10 +23,12 @@ export default {
   width: 200px;
   aspect-ratio: 1;
   border-radius: 50%;
+  transition: 0.5s;
+  margin-bottom: 10px;
 }
 
 .img:hover {
-  border-radius: 0;
-  transition: all 0.5s ease-in-out;
+  border-radius: 5%;
+  transition: 0.5s;
 }
 </style>
