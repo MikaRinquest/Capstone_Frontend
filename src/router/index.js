@@ -2,21 +2,27 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/start/Login.vue"),
+    path: "/businesslogin",
+    name: "BusinessLoginView",
+    component: () => import("../views/start/Login/BusinessLoginView.vue"),
+  },
+
+  {
+    path: "/userlogin",
+    name: "UserLoginView",
+    component: () => import("../views/start/Login/UserLoginView.vue"),
   },
 
   {
     path: "/businessRegister",
     name: "BusinessRegister",
-    component: () => import("../views/start/BusinessRegister.vue"),
+    component: () => import("../views/start/Register/BusinessRegister.vue"),
   },
 
   {
     path: "/userRegister",
     name: "UserRegister",
-    component: () => import("../views/start/UserRegister.vue"),
+    component: () => import("../views/start/Register/UserRegister.vue"),
   },
 
   {

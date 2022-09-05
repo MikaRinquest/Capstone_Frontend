@@ -1,9 +1,6 @@
 <template>
   <div>
-    <nav>
-      <router-link to="/userRegister">Register as a business</router-link> |
-      <router-link to="/businessRegister">Register as a user</router-link>
-    </nav>
+    <RegisterNav />
     <div class="start">
       <form @submit.prevent="" class="form">
         <input type="email" name="email" id="email" v-model="email" required />
@@ -13,11 +10,18 @@
         <button type="submit" class="btn">Register</button>
       </form>
     </div>
-    <p>Already registered? Click <router-link to="/login">here</router-link></p>
+    <p>
+      Already registered? Click
+      <router-link to="/businesslogin">here</router-link>
+    </p>
   </div>
 </template>
 <script>
+import RegisterNav from "@/components/Navbars/RegisterNav.vue";
 export default {
+  components: {
+    RegisterNav,
+  },
   data() {
     return {
       email: this.email,

@@ -1,7 +1,12 @@
 <template>
   <div class="holder">
     <router-view class="content" />
-    <UserNavbar />
+    <div v-if="user">
+      <UserNavbar />
+    </div>
+    <div v-if="business">
+      <BusinessNavbar />
+    </div>
   </div>
 </template>
 <script>
@@ -11,6 +16,14 @@ export default {
   components: {
     BusinessNavbar,
     UserNavbar,
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    BusinessNavbar() {
+      return this.$store.state.business;
+    },
   },
 };
 </script>

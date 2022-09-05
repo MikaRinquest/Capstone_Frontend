@@ -17,7 +17,7 @@
         Add new product
       </button>
       <button class="link btn">Delete product</button>
-      <router-link to="/login"
+      <router-link to="/businesslogin"
         ><button class="link btn">Log Out</button></router-link
       >
       <!-- Button trigger modal -->
