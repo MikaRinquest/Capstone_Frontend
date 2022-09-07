@@ -6,6 +6,7 @@
         alt="Default Image"
         class="link"
       />
+      <router-link to="/home" class="link">Home</router-link>
       <router-link to="/products" class="link">View Products</router-link>
       <router-link to="/b_account" class="link">Account Settings</router-link>
       <button
@@ -18,7 +19,7 @@
       </button>
       <button class="link btn">Delete product</button>
       <router-link to="/businesslogin"
-        ><button class="link btn">Log Out</button></router-link
+        ><button class="link btn" @click="logout">Log Out</button></router-link
       >
       <!-- Button trigger modal -->
 
@@ -59,7 +60,7 @@
                   v-model="url"
                   id="url"
                   class="mb-2"
-                  placeholder="Image UFL"
+                  placeholder="Image URL"
                 />
                 <textarea
                   v-model="desc"
@@ -90,7 +91,11 @@
               >
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary text-dark">
+              <button
+                type="button"
+                class="btn btn-primary text-dark"
+                @click="addProduct"
+              >
                 Add
               </button>
             </div>
@@ -101,7 +106,44 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      name: "",
+      url: "",
+      desc: "",
+      price: "",
+      type: "",
+      // b_id: business.business.b_id,
+    };
+  },
+
+  computed: {
+    business() {
+      console.log(business);
+      return this.$store.state.business;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/products");
+      // localStorage.clear();
+      // this.$router.go();
+    },
+
+    addProduct() {
+      return this.$store.dispatch("addProduct", {
+        name: this.name,
+        p_img: this.url,
+        description: this.desc,
+        price: this.price,
+        p_type: this.type,
+        b_id: this.business.business.b_id,
+      });
+    },
+  },
+};
 </script>
 <style scoped>
 #nav-holder {

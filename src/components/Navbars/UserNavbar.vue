@@ -11,7 +11,7 @@
       <router-link to="/u_account" class="link">Account Settings</router-link>
       <router-link to="/contact" class="link">Contact us</router-link>
       <router-link to="/cart" class="link">Cart</router-link>
-      <router-link to="/businesslogin" class="link" @click="Logout">
+      <router-link to="/businesslogin" class="link" @click="logout">
         Log Out
       </router-link>
     </nav>
@@ -23,9 +23,9 @@ import Footer from "@/components/Footer.vue";
 export default {
   components: { Footer },
   methods: {
-    Logout() {
-      this.$store.commit("Logout");
-      this.$router.push("/");
+    logout() {
+      this.$store.commit("logout"); //Commit is used when calling a mutation, dispatch is used when calling an action
+      this.$router.push("/"); //Sends the user to the login page
     },
   },
 };

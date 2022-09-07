@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import router from "@/router";
+import router from "@/router"; //Needed for the router.push functions
 import createPersistedState from "vuex-persistedstate"; //Importing the plugin
 
 export default createStore({
@@ -57,14 +57,14 @@ export default createStore({
     setToken: (state, token) => {
       state.token = token;
     },
-    Logout(state) {
-      (state.user = ""), (state.token = "");
+    logout(state) {
+      (state.user = ""), (state.business = ""), (state.token = ""); //Just sets the states to null, "logging out" the user or business
     },
   },
   actions: {
     // User Login
     userLogin: async (context, payload) => {
-      let res = await fetch("https://capstone-ecom.herokuapp.com/users/login", {
+      let res = await fetch("http://localhost:3000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default createStore({
       context.commit("setToken", data.token);
 
       // Verify token
-      fetch("https://capstone-ecom.herokuapp.com/users/user/verify", {
+      fetch("http://localhost:3000/users/user/verify", {
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": data.token,
@@ -95,25 +95,22 @@ export default createStore({
 
     // Business login
     businessLogin: async (context, payload) => {
-      let res = await fetch(
-        "https://capstone-ecom.herokuapp.com/business/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: payload.email,
-            password: payload.password,
-          }),
-        }
-      );
+      let res = await fetch("http://localhost:3000/business/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: payload.email,
+          password: payload.password,
+        }),
+      });
       let data = await res.json();
       console.log(data);
       context.commit("setToken", data.token);
 
       // Verify
-      fetch("https://capstone-ecom.herokuapp.com/business/business/verify", {
+      fetch("http://localhost:3000/business/business/verify", {
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": data.token,
@@ -122,6 +119,7 @@ export default createStore({
         .then((res) => res.json())
         .then((business) => {
           context.commit("setBusiness", business);
+          console.log(business.business.b_id);
         });
       router.push("/home");
     },
@@ -156,7 +154,7 @@ export default createStore({
 
     //  Get all products
     getProducts: async (context) => {
-      fetch("https://capstone-ecom.herokuapp.com/products")
+      fetch("http://localhost:3000/products")
         .then((res) => res.json())
         .then((products) => {
           context.commit("setProducts", products);
@@ -165,18 +163,31 @@ export default createStore({
 
     // Single View Product
     getProduct: async (context, id) => {
-      fetch("https://capstone-ecom.herokuapp.com/products/" + id)
+      fetch("http://localhost:3000/products/" + id)
         .then((res) => res.json())
         .then((product) => context.commit("setProduct", product));
     },
 
     // Get businesses
     getBusinesses: async (context) => {
-      fetch("https://capstone-ecom.herokuapp.com/business")
+      fetch("http://localhost:3000/business")
         .then((res) => res.json())
         .then((business) => {
           context.commit("setBusinesses", business);
         });
+    },
+
+    // Add a product
+    addProduct: async (context) => {
+      fetch("http://localhost:3000/products/", {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((product) => context.commit("setProducts", product));
     },
   },
   plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page
