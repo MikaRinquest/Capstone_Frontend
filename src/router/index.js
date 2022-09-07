@@ -8,7 +8,7 @@ const routes = [
   },
 
   {
-    path: "/userlogin",
+    path: "/",
     name: "UserLoginView",
     component: () => import("../views/start/Login/UserLoginView.vue"),
   },
@@ -26,9 +26,15 @@ const routes = [
   },
 
   {
-    path: "/account",
-    name: "AccountView",
-    component: () => import("../views/Business/AccountView.vue"),
+    path: "/b_account",
+    name: "B_AccountView",
+    component: () => import("../views/Business/B_AccountView.vue"),
+  },
+
+  {
+    path: "/u_account",
+    name: "U_AccountView",
+    component: () => import("../views/User/U_AccountView.vue"),
   },
 
   {
@@ -38,7 +44,7 @@ const routes = [
   },
 
   {
-    path: "/",
+    path: "/home",
     name: "HomeView",
     component: () => import("@/views/User/HomeView.vue"),
   },

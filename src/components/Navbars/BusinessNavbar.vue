@@ -7,7 +7,7 @@
         class="link"
       />
       <router-link to="/products" class="link">View Products</router-link>
-      <router-link to="/account" class="link">Account Settings</router-link>
+      <router-link to="/b_account" class="link">Account Settings</router-link>
       <button
         type="button"
         class="link btn btn-primary"

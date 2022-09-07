@@ -1,13 +1,16 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate"; //Importing the plugin
 
 export default createStore({
   state: {
     user: null,
+    newUser: null,
     products: null,
     product: null,
     cart: [],
     businesses: null,
     business: null,
+    newBusiness: null,
     token: null,
   },
   mutations: {
@@ -15,6 +18,12 @@ export default createStore({
     setUser: (state, user) => {
       state.user = user;
     },
+
+    // Set new User
+    setNewUser: (state, newUser) => {
+      state.newUser = newUser;
+    },
+
     // Get products
     setProducts: (state, products) => {
       state.products = products;
@@ -33,13 +42,23 @@ export default createStore({
       state.businesses = businesses;
     },
 
+    // Get business
+    setBusiness: (state, business) => {
+      state.business = business;
+    },
+
+    // Set new business
+    setNewBusiness: (state, newBusiness) => {
+      state.newBusiness = newBusiness;
+    },
+
+    // Stores the token
     setToken: (state, token) => {
       state.token = token;
     },
   },
   actions: {
-    // User functions
-    //  Get all products
+    // User Login
     userLogin: async (context, payload) => {
       let res = await fetch("https://capstone-ecom.herokuapp.com/users/login", {
         method: "POST",
@@ -53,26 +72,23 @@ export default createStore({
       });
       let data = await res.json();
       console.log(data);
-      if (data.token) {
-        context.commit("setToken", data.token);
+      context.commit("setToken", data.token);
 
-        // Verify token
-        //
-        fetch("https://capstone-ecom.herokuapp.com/users/user/verify", {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": data.token,
-          },
-        })
-          .then((res) => res.json())
-          .then((user) => {
-            context.commit("setUser", user);
-          });
-      } else {
-        alert("User not found");
-      }
+      // Verify token
+      fetch("https://capstone-ecom.herokuapp.com/users/user/verify", {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": data.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((user) => {
+          context.commit("setUser", user);
+          // console.log(user);
+        });
     },
 
+    // Business login
     businessLogin: async (context, payload) => {
       let res = await fetch(
         "https://capstone-ecom.herokuapp.com/business/login",
@@ -89,29 +105,24 @@ export default createStore({
       );
       let data = await res.json();
       console.log(data);
-      if (data.token) {
-        context.commit("setToken", data.token);
+      context.commit("setToken", data.token);
 
-        // Verify token
-        //
-        fetch("https://capstone-ecom.herokuapp.com//verify", {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": data.token,
-          },
-        })
-          .then((res) => res.json())
-          .then((user) => {
-            context.commit("setUser", user);
-          });
-      } else {
-        alert("User not found");
-      }
+      // Verify
+      fetch("https://capstone-ecom.herokuapp.com/business/business/verify", {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": data.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((business) => {
+          context.commit("setBusiness", business);
+        });
     },
 
-    userRegister: async (context, payload) => {
-      const { f_name, l_name, email, password, address } = payload;
-      fetch("https://jsonplaceholder.typicode.com/posts", {
+    // User register
+    userRegister: async (context, user) => {
+      fetch("http://localhost:3000/users/register", {
         method: "POST",
         body: JSON.stringify(user),
         headers: {
@@ -119,9 +130,25 @@ export default createStore({
         },
       })
         .then((response) => response.json())
-        .then((user) => context.commit(""));
+        .then((data) => context.commit("setNewUser", data));
+      // console.log(`User ${user.f_name} was created.`);
     },
 
+    // Business Register
+    businessRegister: async (context, business) => {
+      fetch("http://localhost:3000/business/register", {
+        method: "POST",
+        body: JSON.stringify(business),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => context.commit("setNewBusiness", data));
+      // console.log(`User ${business.b_name} was created.`);
+    },
+
+    //  Get all products
     getProducts: async (context) => {
       fetch("https://capstone-ecom.herokuapp.com/products")
         .then((res) => res.json())
@@ -146,4 +173,7 @@ export default createStore({
         });
     },
   },
+  plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page
+  //npm install --save vuex-persistedstate
+  //Above is how to install persisted state
 });

@@ -2,10 +2,10 @@
   <div>
     <RegisterNav />
     <div class="start">
-      <form @submit.prevent="" class="form">
+      <form @submit.prevent="businessRegister" class="form">
+        <input type="text" name="name" id="name" v-model="name" required />
         <input type="email" name="email" id="email" v-model="email" required />
         <input type="password" name="psw" id="psw" v-model="psw" required />
-        <input type="text" name="name" id="name" v-model="name" required />
         <input type="tel" name="tel" id="tel" v-model="tel" required />
         <button type="submit" class="btn">Register</button>
       </form>
@@ -24,11 +24,27 @@ export default {
   },
   data() {
     return {
-      email: this.email,
-      psw: this.psw,
-      name: this.name,
-      tel: this.tel,
+      name: "",
+      email: "",
+      psw: "",
+      tel: "",
     };
+  },
+
+  computed: {
+    business() {
+      return this.$store.state.newBusiness;
+    },
+  },
+  methods: {
+    businessRegister() {
+      return this.$store.dispatch("businessRegister", {
+        b_name: this.name,
+        email: this.email,
+        password: this.psw,
+        phone: this.tel,
+      });
+    },
   },
 };
 </script>

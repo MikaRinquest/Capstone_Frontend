@@ -6,9 +6,9 @@
         alt="Default Image"
         class="link img"
       />
-      <router-link to="/" class="link">Home</router-link>
+      <router-link to="/home" class="link">Home</router-link>
       <router-link to="/allproducts" class="link">View Products</router-link>
-      <router-link to="/account" class="link">Account Settings</router-link>
+      <router-link to="/u_account" class="link">Account Settings</router-link>
       <router-link to="/contact" class="link">Contact us</router-link>
       <router-link to="/cart" class="link">Cart</router-link>
       <router-link to="/businesslogin" class="link"> Log Out </router-link>
@@ -20,12 +20,6 @@
 import Footer from "@/components/Footer.vue";
 export default {
   components: { Footer },
-
-  methods: {
-    refresh() {
-      window.location.reload();
-    },
-  },
 };
 </script>
 <style scoped>

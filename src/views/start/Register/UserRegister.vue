@@ -2,7 +2,15 @@
   <div>
     <RegisterNav />
     <div class="start">
-      <form @submit.prevent="" class="form">
+      <form @submit.prevent="userRegister" class="form">
+        <input type="text" name="name" id="name" v-model="name" required />
+        <input
+          type="text"
+          name="surname"
+          id="surname"
+          v-model="surname"
+          required
+        />
         <input
           type="email"
           name="email"
@@ -17,14 +25,6 @@
           id="psw"
           v-model="psw"
           placeholder="Insert your password here."
-          required
-        />
-        <input type="text" name="name" id="name" v-model="name" required />
-        <input
-          type="text"
-          name="surname"
-          id="surname"
-          v-model="surname"
           required
         />
         <input
@@ -51,15 +51,31 @@ export default {
   },
   data() {
     return {
-      email: "",
-      psw: "",
       name: "",
       surname: "",
+      email: "",
+      psw: "",
       address: "",
     };
   },
 
-  methods: {},
+  computed: {
+    user() {
+      return this.$store.state.newUser;
+    },
+  },
+
+  methods: {
+    userRegister() {
+      this.$store.dispatch("userRegister", {
+        f_name: this.name,
+        l_name: this.surname,
+        email: this.email,
+        password: this.psw,
+        address: this.address,
+      });
+    },
+  },
 };
 </script>
 <style>

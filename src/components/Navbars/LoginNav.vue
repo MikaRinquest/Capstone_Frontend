@@ -1,8 +1,8 @@
 <template>
   <div>
     <nav>
-      <router-link to="/businesslogin">Login as a business</router-link> |
-      <router-link to="/userlogin">Login as a user</router-link>
+      <router-link to="/">Login as a user</router-link> |
+      <router-link to="/businesslogin">Login as a business</router-link>
     </nav>
   </div>
 </template>

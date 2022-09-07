@@ -1,10 +1,10 @@
 <template>
   <div class="holder">
     <router-view class="content" />
-    <div v-if="user">
+    <div>
       <UserNavbar />
     </div>
-    <div v-if="business">
+    <div>
       <BusinessNavbar />
     </div>
   </div>
@@ -21,7 +21,7 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    BusinessNavbar() {
+    business() {
       return this.$store.state.business;
     },
   },
