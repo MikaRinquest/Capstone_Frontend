@@ -11,7 +11,9 @@
       <router-link to="/u_account" class="link">Account Settings</router-link>
       <router-link to="/contact" class="link">Contact us</router-link>
       <router-link to="/cart" class="link">Cart</router-link>
-      <router-link to="/businesslogin" class="link"> Log Out </router-link>
+      <router-link to="/businesslogin" class="link" @click="Logout">
+        Log Out
+      </router-link>
     </nav>
     <Footer />
   </div>
@@ -20,6 +22,12 @@
 import Footer from "@/components/Footer.vue";
 export default {
   components: { Footer },
+  methods: {
+    Logout() {
+      this.$store.commit("Logout");
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 <style scoped>
@@ -42,7 +50,7 @@ export default {
 .link {
   color: #dbdbdb;
   text-decoration: none;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   font-size: 20px;
 }
 </style>

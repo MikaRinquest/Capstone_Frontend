@@ -1,10 +1,10 @@
 <template>
   <div class="holder">
     <router-view class="content" />
-    <div>
+    <div v-if="user">
       <UserNavbar />
     </div>
-    <div>
+    <div v-if="business">
       <BusinessNavbar />
     </div>
   </div>

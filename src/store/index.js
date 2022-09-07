@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import router from "@/router";
 import createPersistedState from "vuex-persistedstate"; //Importing the plugin
 
 export default createStore({
@@ -56,6 +57,9 @@ export default createStore({
     setToken: (state, token) => {
       state.token = token;
     },
+    Logout(state) {
+      (state.user = ""), (state.token = "");
+    },
   },
   actions: {
     // User Login
@@ -84,6 +88,7 @@ export default createStore({
         .then((res) => res.json())
         .then((user) => {
           context.commit("setUser", user);
+          router.push("/home");
           // console.log(user);
         });
     },
@@ -118,6 +123,7 @@ export default createStore({
         .then((business) => {
           context.commit("setBusiness", business);
         });
+      router.push("/home");
     },
 
     // User register
