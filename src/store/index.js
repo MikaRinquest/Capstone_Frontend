@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import router from "@/router"; //Needed for the router.push functions
 import createPersistedState from "vuex-persistedstate"; //Importing the plugin
+import swal from "sweetalert";
 
 export default createStore({
   state: {
@@ -13,6 +14,7 @@ export default createStore({
     business: null,
     newBusiness: null,
     token: null,
+    b_id: null,
   },
   mutations: {
     // Get user
@@ -77,20 +79,33 @@ export default createStore({
       let data = await res.json();
       console.log(data);
       context.commit("setToken", data.token);
-
-      // Verify token
-      fetch("http://localhost:3000/users/user/verify", {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": data.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((user) => {
-          context.commit("setUser", user);
-          router.push("/home");
-          // console.log(user);
+      if (data.msg === "Email does not exist, please register.") {
+        swal({
+          title: "Oops!",
+          text: "Email is incorrect",
+          icon: "error",
         });
+      } else if (data.msg === "Password is incorrect") {
+        swal({
+          title: "Oops!",
+          text: "Password is incorrect",
+          icon: "error",
+        });
+      } else {
+        // Verify token
+        fetch("http://localhost:3000/users/user/verify", {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": data.token,
+          },
+        })
+          .then((res) => res.json())
+          .then((user) => {
+            console.log(user);
+            context.commit("setUser", user);
+            // router.push("/home");
+          });
+      }
     },
 
     // Business login
@@ -108,20 +123,32 @@ export default createStore({
       let data = await res.json();
       console.log(data);
       context.commit("setToken", data.token);
-
-      // Verify
-      fetch("http://localhost:3000/business/business/verify", {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": data.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((business) => {
-          context.commit("setBusiness", business);
-          console.log(business.business.b_id);
+      if (data.msg === "Email does not exist, please register.") {
+        swal({
+          title: "Oops!",
+          text: "Email is incorrect",
+          icon: "error",
         });
-      router.push("/home");
+      } else if (data.msg === "Password is incorrect") {
+        swal({
+          title: "Oops!",
+          text: "Password is incorrect",
+          icon: "error",
+        });
+      } else {
+        // Verify
+        fetch("http://localhost:3000/business/business/verify", {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": data.token,
+          },
+        })
+          .then((res) => res.json())
+          .then((business) => {
+            context.commit("setBusiness", business);
+          });
+        router.push("/home");
+      }
     },
 
     // User register
@@ -178,7 +205,7 @@ export default createStore({
     },
 
     // Add a product
-    addProduct: async (context) => {
+    addProduct: async (context, product) => {
       fetch("http://localhost:3000/products/", {
         method: "POST",
         body: JSON.stringify(product),
@@ -187,7 +214,7 @@ export default createStore({
         },
       })
         .then((res) => res.json())
-        .then((product) => context.commit("setProducts", product));
+        .then((data) => context.commit("setProducts", data));
     },
   },
   plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page

@@ -114,13 +114,12 @@ export default {
       desc: "",
       price: "",
       type: "",
-      // b_id: business.business.b_id,
     };
   },
 
   computed: {
     business() {
-      console.log(business);
+      console.log(this.$store.state.business);
       return this.$store.state.business;
     },
   },
@@ -133,6 +132,7 @@ export default {
     },
 
     addProduct() {
+      console.log(this.business.business.b_id);
       return this.$store.dispatch("addProduct", {
         name: this.name,
         p_img: this.url,

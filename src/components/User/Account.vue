@@ -5,12 +5,18 @@
       alt="Default Image"
       class="link"
     />
-    <h2>{{ user.user.f_name }} {{ user.user.l_name }}</h2>
+    <h2>{{ user.user.f_name }}</h2>
+    <h2>{{ user.user.email }}</h2>
+    <h2>{{ user.user.l_name }}</h2>
+    <h2>{{ user.user.address }}</h2>
   </div>
 </template>
 <script>
 export default {
-  methods: {
+  mounted() {
+    console.log(this.user);
+  },
+  computed: {
     user() {
       return this.$store.state.user;
     },
