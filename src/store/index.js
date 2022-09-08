@@ -8,6 +8,7 @@ export default createStore({
     user: null,
     newUser: null,
     products: null,
+    relatedProducts: null,
     product: null,
     cart: [],
     businesses: null,
@@ -35,6 +36,12 @@ export default createStore({
     setProduct: (state, product) => {
       state.product = product;
     },
+
+    // Set related products
+    setRelatedProducts: (state, relatedProducts) => {
+      state.relatedProducts = relatedProducts;
+    },
+
     // Get cart
     setCart: (state, cart) => {
       state.cart = cart;
@@ -60,7 +67,7 @@ export default createStore({
       state.token = token;
     },
     logout(state) {
-      (state.user = ""), (state.business = ""), (state.token = ""); //Just sets the states to null, "logging out" the user or business
+      (state.user = ""), (state.business = ""), (state.token = ""), state; //Just sets the states to null, "logging out" the user or business
     },
   },
   actions: {
@@ -179,6 +186,7 @@ export default createStore({
       // console.log(`User ${business.b_name} was created.`);
     },
 
+    // User functions
     //  Get all products
     getProducts: async (context) => {
       fetch("http://localhost:3000/products")
@@ -201,6 +209,44 @@ export default createStore({
         .then((res) => res.json())
         .then((business) => {
           context.commit("setBusinesses", business);
+        });
+    },
+
+    // Edit user
+    editUser: async (context, user) => {
+      fetch("http://localhost:3000/users/", {
+        method: "PATCH",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => context.commit("setUser", json));
+    },
+
+    // Delete account
+    deleteUser: async (context, user) => {
+      fetch("http://localhost:3000/users/", {
+        method: "DELETE",
+        body: JSON.stringify(user),
+      })
+        .then((response) => response.json())
+        .then((json) => context.commit("setUser", json));
+    },
+    // Business Functions
+    // Get related products
+    getRelatedProducts: async (context) => {
+      fetch("http://localhost:3000/products/product", {
+        method: "GET",
+        // body: JSON.stringify(products),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          context.commit("setRelatedProducts", data);
         });
     },
 

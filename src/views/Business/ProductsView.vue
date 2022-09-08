@@ -15,12 +15,18 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getRelatedProducts", {
+      b_id: this.business.business.b_id,
+    });
+    // console.log(products.products.b_id);
   },
 
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    business() {
+      return this.$store.state.business;
     },
   },
 };

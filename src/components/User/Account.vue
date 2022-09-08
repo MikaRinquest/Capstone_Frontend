@@ -1,24 +1,128 @@
 <template>
-  <div class="holder" v-if="user">
-    <img
-      src="https://i.postimg.cc/0QvnRfbQ/icon.webp"
-      alt="Default Image"
-      class="link"
-    />
-    <h2>{{ user.user.f_name }}</h2>
-    <h2>{{ user.user.email }}</h2>
-    <h2>{{ user.user.l_name }}</h2>
-    <h2>{{ user.user.address }}</h2>
+  <div class="holder">
+    <img :src="user.user.u_img" alt="Default Image" class="link" />
+    <div>
+      <h2 class="text-white">{{ user.user.f_name }}</h2>
+      <h2 class="text-white">{{ user.user.l_name }}</h2>
+      <h2 class="text-white">{{ user.user.email }}</h2>
+      <h2 class="text-white">{{ user.user.address }}</h2>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Edit Account
+    </button>
+
+    <!-- Delete button -->
+    <button class="text-warning bg-danger" @click="deleteUser">
+      Delete Account
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <input
+                type="text"
+                name="name"
+                :placeholder="user.user.f_name"
+                v-model="name"
+              />
+              <input
+                type="text"
+                name="surname"
+                :placeholder="user.user.l_name"
+                v-model="surname"
+              />
+              <input
+                type="text"
+                name="address"
+                :placeholder="user.user.address"
+                v-model="address"
+              />
+              <input
+                type="text"
+                name="img"
+                :placeholder="user.user.u_img"
+                v-model="img"
+              />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" @click="editUser">
+              Push Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  mounted() {
-    console.log(this.user);
+  data() {
+    return {
+      name: "",
+      surname: "",
+      address: "",
+      img: "",
+    };
   },
+
+  mounted() {
+    console.log(this.user.user.user_id);
+  },
+
   computed: {
     user() {
       return this.$store.state.user;
+    },
+  },
+
+  methods: {
+    editUser() {
+      return this.$store.dispatch("editUser", {
+        user_id: this.user.user.user_id,
+        f_name: this.name,
+        l_name: this.surname,
+        address: this.address,
+        u_img: this.img,
+      });
+    },
+    deleteUser() {
+      return this.$store.dispatch("deleteUser", {
+        user_id: this.user.user.user_id,
+      });
+      // this.$store.commit("logout"); //Commit is used when calling a mutation, dispatch is used when calling an action
+      // this.$router.push("/"); //Sends the user to the login page
     },
   },
 };
