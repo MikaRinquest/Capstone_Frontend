@@ -1,15 +1,16 @@
 <template>
   <div>
-    <RegisterNav />
     <div class="start">
+    <RegisterNav />
       <form @submit.prevent="userRegister" class="form">
-        <input type="text" name="name" id="name" v-model="name" required />
+        <input type="text" name="name" id="name" v-model="name" required  placeholder="Enter your first name here"/>
         <input
           type="text"
           name="surname"
           id="surname"
           v-model="surname"
           required
+          placeholder="Enter your last name here"
         />
         <input
           type="email"
@@ -33,14 +34,16 @@
           id="address"
           v-model="address"
           required
+          placeholder="Enter your shipping address here"
         />
         <button type="submit" class="btn">Register</button>
       </form>
-    </div>
-    <p>
+      <h2>
       Already registered? Click
       <router-link to="/businesslogin">here</router-link>
-    </p>
+    </h2>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -78,20 +81,31 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .start {
   height: 100vh;
-  width: 85vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  align-items:center;
+  background: #bffdc0;
+    color: white !important;
+
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+    height: 55%;
+    width: 65%;
+    background: #88ec8a;
+    box-shadow: 5px 5px 10px #74c975, -5px -5px 10px #9cff9f;
+    justify-content: center;
+
 }
 
 .btn {

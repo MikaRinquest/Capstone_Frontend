@@ -1,5 +1,6 @@
 <template>
-  <div class="card col-3 me-2 ms-3 mt-2 flex-column">
+  <div class="col-3">
+    <div class="card me-2 ms-3 mt-2 flex-column">
     <div class="img-hold">
       <img :src="product.p_img" alt="Image of product" class="img" />
     </div>
@@ -16,6 +17,7 @@
           See more
         </p>
       </router-link>
+    </div>
     </div>
   </div>
 </template>
@@ -35,7 +37,9 @@ export default {
 .card {
   border-radius: 2%;
   transition: 1s;
-  height: 45%;
+  /* transition-delay: 1s; */
+  height: 90%;
+  color: white !important;;
   background-color: #c0b9ff;
 }
 
@@ -50,7 +54,7 @@ export default {
 
 .card:hover > .router1 > .router2 > .single {
   display: block !important;
-  transition-delay: 0.5s;
+  transition: 1s;
 }
 
 .router1 {

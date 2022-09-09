@@ -76,7 +76,7 @@ export default createStore({
   actions: {
     // User Login
     userLogin: async (context, payload) => {
-      let res = await fetch("http://localhost:3000/users/login", {
+      let res = await fetch("https://capstone-ecom.herokuapp.com/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export default createStore({
         });
       } else {
         // Verify token
-        fetch("http://localhost:3000/users/user/verify", {
+        fetch("https://capstone-ecom.herokuapp.com/users/user/verify", {
           headers: {
             "Content-Type": "application/json",
             "x-auth-token": data.token,
@@ -113,14 +113,14 @@ export default createStore({
           .then((user) => {
             console.log(user);
             context.commit("setUser", user);
-            // router.push("/home");
+            router.push("/home");
           });
       }
     },
 
     // Business login
     businessLogin: async (context, payload) => {
-      let res = await fetch("http://localhost:3000/business/login", {
+      let res = await fetch("https://capstone-ecom.herokuapp.com/business/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,7 +147,7 @@ export default createStore({
         });
       } else {
         // Verify
-        fetch("http://localhost:3000/business/business/verify", {
+        fetch("https://capstone-ecom.herokuapp.com/business/business/verify", {
           headers: {
             "Content-Type": "application/json",
             "x-auth-token": data.token,
@@ -165,7 +165,7 @@ export default createStore({
 
     // User register
     userRegister: async (context, user) => {
-      fetch("http://localhost:3000/users/register", {
+      fetch("https://capstone-ecom.herokuapp.com/users/register", {
         method: "POST",
         body: JSON.stringify(user),
         headers: {
@@ -174,12 +174,17 @@ export default createStore({
       })
         .then((response) => response.json())
         .then((data) => context.commit("setNewUser", data));
+        swal({
+          icon:"success",
+          title:"Awesome!",
+          text:"You have successfully created an account, try logging in."
+        })
       // console.log(`User ${user.f_name} was created.`);
     },
 
     // Business Register
     businessRegister: async (context, business) => {
-      fetch("http://localhost:3000/business/register", {
+      fetch("https://capstone-ecom.herokuapp.com/business/register", {
         method: "POST",
         body: JSON.stringify(business),
         headers: {
@@ -188,13 +193,18 @@ export default createStore({
       })
         .then((response) => response.json())
         .then((data) => context.commit("setNewBusiness", data));
+        swal({
+          icon:"success",
+          title:"Awesome!",
+          text:"You have successfully created an account, try logging in."
+        })
       // console.log(`User ${business.b_name} was created.`);
     },
 
     // User functions
     //  Get all products
     getProducts: async (context) => {
-      fetch("http://localhost:3000/products")
+      fetch("https://capstone-ecom.herokuapp.com/products")
         .then((res) => res.json())
         .then((products) => {
           context.commit("setProducts", products);
@@ -203,14 +213,14 @@ export default createStore({
 
     // Single View Product
     getProduct: async (context, id) => {
-      fetch("http://localhost:3000/products/" + id)
+      fetch("https://capstone-ecom.herokuapp.com/products/" + id)
         .then((res) => res.json())
         .then((product) => context.commit("setProduct", product));
     },
 
     // Get businesses
     getBusinesses: async (context) => {
-      fetch("http://localhost:3000/business")
+      fetch("https://capstone-ecom.herokuapp.com/business")
         .then((res) => res.json())
         .then((business) => {
           context.commit("setBusinesses", business);
@@ -219,7 +229,7 @@ export default createStore({
 
     // Edit user
     editUser: async (context, user) => {
-      fetch("http://localhost:3000/users/", {
+      fetch("https://capstone-ecom.herokuapp.com/users/", {
         method: "PATCH",
         body: JSON.stringify(user),
         headers: {
@@ -232,7 +242,7 @@ export default createStore({
 
     // Delete account
     deleteUser: async (context, user) => {
-      fetch("http://localhost:3000/users/", {
+      fetch("https://capstone-ecom.herokuapp.com/users/", {
         method: "DELETE",
         body: JSON.stringify(user),
       })
@@ -243,7 +253,7 @@ export default createStore({
     // Business Functions
     // Get related products
     getRelatedProducts: async (context, id) => {
-      fetch("http://localhost:3000/products/product/" + id, {
+      fetch("https://capstone-ecom.herokuapp.com/products/product/" + id, {
         method: "GET",
         // body: JSON.stringify(products),
         headers: {
@@ -258,7 +268,7 @@ export default createStore({
 
     // Add a product
     addProduct: async (context, product) => {
-      fetch("http://localhost:3000/products/", {
+      fetch("https://capstone-ecom.herokuapp.com/products/", {
         method: "POST",
         body: JSON.stringify(product),
         headers: {
@@ -271,7 +281,7 @@ export default createStore({
 
     // Edit a product
     editProduct: async (context, product) => {
-      await fetch("http://localhost:3000/products/" + product.p_id, {
+      await fetch("https://capstone-ecom.herokuapp.com/products/" + product.p_id, {
         method: "PATCH",
         body: JSON.stringify(product),
         headers: {
@@ -284,12 +294,26 @@ export default createStore({
 
     // Delete product
     deleteProduct: async (context, id) => {
-      await fetch("http://localhost:3000/products/" + id, {
+      await fetch("https://capstone-ecom.herokuapp.com/products/" + id, {
         method: "DELETE",
       })
         .then((response) => response.json())
         .then(() => context.commit("setRelatedProducts"));
     },
+
+// Edit business
+editBusiness: async (context, business) => {
+  fetch("https://capstone-ecom.herokuapp.com/business/", {
+    method: "PATCH",
+    body: JSON.stringify(business),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => context.commit("setBusiness", json));
+},
+
   },
   plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page
   //npm install --save vuex-persistedstate

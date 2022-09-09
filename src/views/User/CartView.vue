@@ -1,7 +1,7 @@
 <template>
   <div>
     <Cart v-for="product in products" :key="product.p_id" :product="product" />
-    <p>TOTAL :</p>
+    <h1>TOTAL :</h1>
     <router-link to="/checkout"
       ><i class="bx bxs-cart">Checkout</i></router-link
     >
@@ -23,4 +23,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.bx{
+  font-size:25px;
+}
+</style>

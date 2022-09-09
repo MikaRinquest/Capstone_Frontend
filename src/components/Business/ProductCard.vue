@@ -108,6 +108,8 @@ export default {
   height: 55%;
   display: flex;
   flex-direction: column;
+    color: white !important;;
+  background-color: #c0b9ff;
 }
 
 .name {

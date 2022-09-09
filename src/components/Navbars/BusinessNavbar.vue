@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="nav-holder">
     <nav id="navbar">
       <img
-        src="https://i.postimg.cc/0QvnRfbQ/icon.webp"
+        :src="business.business.b_img"
         alt="Default Image"
-        class="link"
+        class="link img"
       />
       <router-link to="/home" class="link">Home</router-link>
       <router-link to="/products" class="link">View Products</router-link>
       <router-link to="/b_account" class="link">Account Settings</router-link>
+      <router-link to="/contactme" class="link">Contact</router-link>
       <button
         type="button"
         class="link btn btn-primary"
@@ -17,10 +18,10 @@
       >
         Add new product
       </button>
-      <button class="link btn" @click="test">Delete product</button>
       <router-link to="/businesslogin"
         ><button class="link btn" @click="logout">Log Out</button></router-link
       >
+
       <!-- Button trigger modal -->
 
       <!-- Modal -->
@@ -103,10 +104,13 @@
         </div>
       </div>
     </nav>
+<Footer />
   </div>
 </template>
 <script>
+import Footer from "@/components/Footer.vue";
 export default {
+  components: { Footer },
   data() {
     return {
       name: "",
@@ -155,32 +159,39 @@ export default {
 };
 </script>
 <style scoped>
-#nav-holder {
+
+.nav-holder {
+  max-width: 15%;
+  height: 100vh;
   position: fixed;
-  top: 0;
   right: 0;
-  float: left;
 }
 
 #navbar {
-  display: flex;
-  flex-direction: column;
-  max-width: 15%;
+  background-color: #006da4;
+  height: 75vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.img {
+  border-radius: 50%;
+  width:100%;
 }
 
 .link {
-  margin-top: 10px;
+  color: #dbdbdb;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .btn {
   border: none;
   background-color: transparent;
   box-shadow: none !important;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight:bold;
 }
 
 input::-webkit-outer-spin-button,

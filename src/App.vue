@@ -49,6 +49,8 @@ export default {
 
 .content {
   min-width: 85%;
+  background-color:#042069;
+  color:lightgrey;
 }
 
 nav {

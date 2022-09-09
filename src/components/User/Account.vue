@@ -1,13 +1,16 @@
 <template>
-  <div class="holder">
+<section class="holder">
+  <div class="profile">
+    <div class="profile-img ">
     <img :src="user.user.u_img" alt="Default Image" class="link" />
-    <div>
-      <h2 class="text-white">{{ user.user.f_name }}</h2>
-      <h2 class="text-white">{{ user.user.l_name }}</h2>
-      <h2 class="text-white">{{ user.user.email }}</h2>
-      <h2 class="text-white">{{ user.user.address }}</h2>
     </div>
-
+    <div class="profile-info ">
+      <h2 class="text-white">Name:{{ user.user.f_name }}</h2>
+      <h2 class="text-white">Surname:{{ user.user.l_name }}</h2>
+      <h2 class="text-white">Email:{{ user.user.email }}</h2>
+      <h2 class="text-white">Shipping Address:{{ user.user.address }}</h2>
+    </div>
+    </div>
     <!-- Button trigger modal -->
     <button
       type="button"
@@ -64,22 +67,23 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {
   // data() {
   //   return {
-  //     name: "",
-  //     surname: "",
-  //     address: "",
-  //     img: "",
+  //     psw:""
   //   };
   // },
 
   mounted() {
-    console.log(this.user.user.user_id);
-  },
+    swal({
+      icon:"warning",
+      title:"Alert!",
+      text:"Any changes made to the account will require you to log back in."
+    })
+},
 
   computed: {
     user() {
@@ -89,23 +93,19 @@ export default {
 
   methods: {
     editUser() {
-      this.$store.dispatch("editUser", {
+      return this.$store.dispatch("editUser", {
         user_id: this.user.user.user_id,
         f_name: this.user.user.f_name,
         l_name: this.user.user.l_name,
         address: this.user.user.address,
         u_img: this.user.user.u_img,
       });
-      // this.login();
-      console.log(this.user);
     },
 
-    login() {
-      this.$store.dispatch("userLogin", {
-        email: this.user.user.email,
-        password: this.user.user.password,
-      });
-    },
+    // logout() {
+    //   this.$store.commit("logout"); //Commit is used when calling a mutation, dispatch is used when calling an action
+    //   this.$router.push("/"); //Sends the user to the login page
+    // },
 
     deleteUser() {
       return this.$store.dispatch("deleteUser", {
@@ -125,6 +125,23 @@ export default {
   align-items: center;
   min-width: 85vw;
   background-color: #042069;
+}
+
+.profile{
+  display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border: 2px solid rgba(80, 191, 255, 0.658);
+    background-color: rgba(80, 191, 255, 0.658);
+    border-radius:30px;
+      padding: 15px;
+      margin-bottom:10px;
+}
+
+
+.profile-info{
+  margin-left:10px;
 }
 
 .link {

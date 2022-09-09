@@ -1,11 +1,11 @@
 <template>
-  <div class="con d-flex flex-wrap">
+  <section class="con d-flex flex-wrap min-vh-100">
     <Products
       v-for="product in products"
       :key="product.p_id"
       :product="product"
     />
-  </div>
+  </section>
 </template>
 <script>
 import Products from "@/components/User/Products.vue";
@@ -28,5 +28,6 @@ export default {
 <style scoped>
 .con {
   background-color: #042069;
+  width:85vw;
 }
 </style>

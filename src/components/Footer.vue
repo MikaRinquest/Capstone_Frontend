@@ -36,12 +36,12 @@ p {
   background-color: #383838;
   color: #dbdbdb;
   height: 25vh;
+  width: 100%;
 }
 
 .work-links {
   padding-top: 5px;
-  padding-bottom: 5px;
-}
+  }
 
 .bx {
   font-size: 15px;
@@ -70,4 +70,13 @@ p {
   font-size: 13px;
   margin-bottom: 5px;
 }
+
+
+@media only screen and (max-width:810px) {
+
+
+
+
+}
+
 </style>

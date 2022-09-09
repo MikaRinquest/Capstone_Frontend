@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="c-info d-flex flex-column col-4">
     <div>
       <img
         :src="business.b_img"
@@ -8,8 +8,8 @@
       />
     </div>
     <div>
-      <p>{{ business.email }}</p>
-      <p>{{ business.phone }}</p>
+      <p>Email: {{ business.email }}</p>
+      <p>Telephone: {{ business.phone }}</p>
     </div>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
 };
 </script>
 <style scoped>
+
+/* .c-info{
+
+} */
+
 .img {
   width: 200px;
   aspect-ratio: 1;

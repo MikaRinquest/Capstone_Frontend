@@ -79,6 +79,12 @@ const routes = [
     name: "ContactView",
     component: () => import("@/views/User/ContactView.vue"),
   },
+
+  {
+    path: "/contactme",
+    name: "ContactMeView",
+    component: () => import("@/views/Business/ContactMeView.vue"),
+  },
 ];
 
 const router = createRouter({

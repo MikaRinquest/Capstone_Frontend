@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex">
-    <div>
+    <!-- <div>
       <h2>{{ product.name }}</h2>
     </div>
     <div>
       <p>{{ product.price }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

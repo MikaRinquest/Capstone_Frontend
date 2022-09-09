@@ -16,7 +16,11 @@ export default {
 
   mounted() {
     this.$store.dispatch("getRelatedProducts");
-    // console.log(this.products.products.p_id);
+    swal({
+      icon:"warning",
+      title:"Please note",
+      text:"To see changes from add,edit or delete, please log in and then logout."
+    })
   },
 
   computed: {

@@ -1,38 +1,41 @@
 <template>
-  <div class="holder">
-    <img
-      src="https://i.postimg.cc/0QvnRfbQ/icon.webp"
-      alt="Default Image"
-      class="link"
-    />
-    <h2 class="text">Business name here</h2>
-    <h2 class="text">Business number here</h2>
+<section class="holder">
+  <div class="profile">
+    <div class="profile-img ">
+    <img :src="business.business.b_img" alt="Default Image" class="link" />
+    </div>
+    <div class="profile-info ">
+      <h2 class="text-white">Name:{{ business.business.b_name }}</h2>
+      <h2 class="text-white">Email:{{ business.business.email }}</h2>
+      <h2 class="text-white">Telephone:{{ business.business.phone }}</h2>
+    </div>
+    </div>
     <!-- Button trigger modal -->
     <button
       type="button"
       class="btn btn-primary"
       data-bs-toggle="modal"
-      data-bs-target="#staticBackdrop3"
+      data-bs-target="#exampleModal"
     >
       Edit Account
     </button>
-    <button class="btn delete">Delete account</button>
+
+    <!-- Delete button -->
+    <button class="text-warning bg-danger" @click="deletebusiness">
+      Delete Account
+    </button>
+
     <!-- Modal -->
     <div
       class="modal fade"
-      id="staticBackdrop3"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
+      id="exampleModal"
       tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
+      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">
-              Change whatever you'd like
-            </h5>
             <button
               type="button"
               class="btn-close"
@@ -41,10 +44,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form class="d-flex flex-column">
-              <input type="text" v-model="url" class="mb-2" id="url" />
-              <input type="text" v-model="name" class="mb-2" id="name" />
-              <input type="tel" v-model="tel" class="mb-2" id="tel" />
+            <form>
+              <input type="text" name="name" v-model="business.business.b_name" />
+              <input type="text" name="address" v-model="business.business.phone" />
+              <input type="text" name="img" v-model="business.business.b_img" />
             </form>
           </div>
           <div class="modal-footer">
@@ -53,19 +56,64 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Cancel
+              Close
             </button>
-            <button type="button" class="btn btn-primary">
-              Make the changes
+            <button type="button" class="btn btn-primary" @click="editBusiness">
+              Push Changes
             </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
-export default {};
+export default {
+  // data() {
+  //   return {
+  //     psw:""
+  //   };
+  // },
+
+  mounted() {
+    swal({
+      icon:"warning",
+      title:"Alert!",
+      text:"Any changes made to the account will require you to log back in."
+    })
+    this.$store.state.business
+},
+
+  computed: {
+    business() {
+      return this.$store.state.business;
+    },
+  },
+
+  methods: {
+    editBusiness() {
+      return this.$store.dispatch("editBusiness", {
+        b_id: this.business.business.b_id,
+        b_name: this.business.business.b_name,
+        phone: this.business.business.phone,
+        b_img: this.business.business.b_img,
+      });
+    },
+
+    // logout() {
+    //   this.$store.commit("logout"); //Commit is used when calling a mutation, dispatch is used when calling an action
+    //   this.$router.push("/"); //Sends the business to the login page
+    // },
+
+    deletebusiness() {
+      return this.$store.dispatch("deletebusiness", {
+        business_id: this.business.business.business_id,
+      });
+      // this.$store.commit("logout"); //Commit is used when calling a mutation, dispatch is used when calling an action
+      // this.$router.push("/"); //Sends the business to the login page
+    },
+  },
+};
 </script>
 <style scoped>
 .holder {
@@ -75,6 +123,23 @@ export default {};
   align-items: center;
   min-width: 85vw;
   background-color: #042069;
+}
+
+.profile{
+  display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border: 2px solid rgba(80, 191, 255, 0.658);
+    background-color: rgba(80, 191, 255, 0.658);
+    border-radius:30px;
+      padding: 15px;
+      margin-bottom:10px;
+}
+
+
+.profile-info{
+  margin-left:10px;
 }
 
 .link {

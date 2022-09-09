@@ -56,17 +56,27 @@ export default {
 <style scoped>
 .start {
   height: 100vh;
-  width: 85vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  align-items:center;
+  background: #bffdc0;
+  color: white !important;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+    height: 25%;
+    width: 55%;
+    background: #88ec8a;
+    box-shadow: 5px 5px 10px #74c975, -5px -5px 10px #9cff9f;
+    justify-content: center;
+
 }
 
 .btn {
@@ -74,12 +84,12 @@ export default {
 }
 
 #email {
-  width: 50vw;
+  width: 30vw;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
 #psw {
-  width: 50vw;
+  width: 30vw;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
