@@ -43,30 +43,10 @@
           </div>
           <div class="modal-body">
             <form>
-              <input
-                type="text"
-                name="name"
-                :placeholder="user.user.f_name"
-                v-model="name"
-              />
-              <input
-                type="text"
-                name="surname"
-                :placeholder="user.user.l_name"
-                v-model="surname"
-              />
-              <input
-                type="text"
-                name="address"
-                :placeholder="user.user.address"
-                v-model="address"
-              />
-              <input
-                type="text"
-                name="img"
-                :placeholder="user.user.u_img"
-                v-model="img"
-              />
+              <input type="text" name="name" v-model="user.user.f_name" />
+              <input type="text" name="surname" v-model="user.user.l_name" />
+              <input type="text" name="address" v-model="user.user.address" />
+              <input type="text" name="img" v-model="user.user.u_img" />
             </form>
           </div>
           <div class="modal-footer">
@@ -88,14 +68,14 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      name: "",
-      surname: "",
-      address: "",
-      img: "",
-    };
-  },
+  // data() {
+  //   return {
+  //     name: "",
+  //     surname: "",
+  //     address: "",
+  //     img: "",
+  //   };
+  // },
 
   mounted() {
     console.log(this.user.user.user_id);
@@ -111,10 +91,10 @@ export default {
     editUser() {
       return this.$store.dispatch("editUser", {
         user_id: this.user.user.user_id,
-        f_name: this.name,
-        l_name: this.surname,
-        address: this.address,
-        u_img: this.img,
+        f_name: this.user.user.f_name,
+        l_name: this.user.user.l_name,
+        address: this.user.user.address,
+        u_img: this.user.user.u_img,
       });
     },
     deleteUser() {

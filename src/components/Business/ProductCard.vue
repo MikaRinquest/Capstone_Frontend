@@ -4,22 +4,28 @@
       <img :src="product.p_img" alt="Image of product" class="img" />
     </div>
     <h3 class="name">{{ product.name }}</h3>
+    <!-- <h3 class="name">{{ product.p_id }}</h3> -->
     <!-- Button trigger modal -->
     <div>
       <button
         type="button"
         class="btn btn-primary text-dark bg-light edit"
         data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop1"
+        :data-bs-target="`#staticBackdrop1${product.p_id}`"
       >
         Edit product
       </button>
-      <button class="btn del"><i class="bx bxs-trash"></i></button>
+      <button
+        class="btn del"
+        @click="this.$store.dispatch('deleteProduct', product.p_id)"
+      >
+        <i class="bx bxs-trash"></i>
+      </button>
     </div>
     <!-- Modal -->
     <div
       class="modal fade"
-      id="staticBackdrop1"
+      :id="`staticBackdrop1${product.p_id}`"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
@@ -41,32 +47,28 @@
             <form class="d-flex flex-column">
               <input
                 type="text"
-                v-model="name"
+                v-model="product.name"
                 class="mb-2"
                 id="name"
-                :placeholder="product.name"
               />
               <input
                 type="text"
-                v-model="url"
+                v-model="product.p_img"
                 class="mb-2"
                 id="url"
-                :placeholder="product.p_img"
               />
 
               <textarea
-                v-model="desc"
+                v-model="product.description"
                 class="mb-2"
                 id="desc"
-                :placeholder="product.description"
               ></textarea>
 
               <input
                 type="number"
-                v-model="price"
+                v-model="product.price"
                 class="mb-2"
                 id="price"
-                :placeholder="product.price"
               />
             </form>
           </div>
@@ -88,6 +90,8 @@
 <script scoped>
 export default {
   props: ["product"],
+
+  methods: {},
 };
 </script>
 <style scoped>
@@ -95,7 +99,7 @@ export default {
   border: 2px solid black;
   margin: 0px 10px 10px 10px;
   width: 30%;
-  height: 50%;
+  height: 55%;
   display: flex;
   flex-direction: column;
 }

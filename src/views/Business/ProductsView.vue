@@ -15,10 +15,8 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("getRelatedProducts", {
-      b_id: this.business.business.b_id,
-    });
-    // console.log(products.products.b_id);
+    this.$store.dispatch("getProducts");
+    // console.log(this.products.products.p_id);
   },
 
   computed: {

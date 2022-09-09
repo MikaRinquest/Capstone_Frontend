@@ -262,6 +262,15 @@ export default createStore({
         .then((res) => res.json())
         .then((data) => context.commit("setProducts", data));
     },
+
+    // Delete product
+    deleteProduct: async (context, id) => {
+      await fetch("http://localhost:3000/products/" + id, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => context.commit("setUser"));
+    },
   },
   plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page
   //npm install --save vuex-persistedstate
