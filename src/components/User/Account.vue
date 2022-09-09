@@ -89,14 +89,24 @@ export default {
 
   methods: {
     editUser() {
-      return this.$store.dispatch("editUser", {
+      this.$store.dispatch("editUser", {
         user_id: this.user.user.user_id,
         f_name: this.user.user.f_name,
         l_name: this.user.user.l_name,
         address: this.user.user.address,
         u_img: this.user.user.u_img,
       });
+      // this.login();
+      console.log(this.user);
     },
+
+    login() {
+      this.$store.dispatch("userLogin", {
+        email: this.user.user.email,
+        password: this.user.user.password,
+      });
+    },
+
     deleteUser() {
       return this.$store.dispatch("deleteUser", {
         user_id: this.user.user.user_id,

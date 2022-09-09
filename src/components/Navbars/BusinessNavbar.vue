@@ -17,7 +17,7 @@
       >
         Add new product
       </button>
-      <button class="link btn">Delete product</button>
+      <button class="link btn" @click="test">Delete product</button>
       <router-link to="/businesslogin"
         ><button class="link btn" @click="logout">Log Out</button></router-link
       >
@@ -132,7 +132,10 @@ export default {
     },
 
     addProduct() {
-      console.log(this.business.business.b_id);
+      // console.log(this.business.business.b_id);
+      setTimeout(() => {
+        window.location.reload;
+      }, 2000);
       return this.$store.dispatch("addProduct", {
         name: this.name,
         p_img: this.url,
@@ -141,6 +144,12 @@ export default {
         p_type: this.type,
         b_id: this.business.business.b_id,
       });
+    },
+
+    test() {
+      setTimeout(() => {
+        console.log("Test Successful!");
+      }, 2000);
     },
   },
 };

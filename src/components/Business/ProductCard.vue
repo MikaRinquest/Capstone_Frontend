@@ -80,7 +80,13 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Confirm</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="this.$store.dispatch('editProduct', product)"
+            >
+              Confirm
+            </button>
           </div>
         </div>
       </div>
@@ -91,7 +97,7 @@
 export default {
   props: ["product"],
 
-  methods: {},
+  // methods: {},
 };
 </script>
 <style scoped>

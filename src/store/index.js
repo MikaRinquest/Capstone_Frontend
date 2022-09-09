@@ -69,6 +69,9 @@ export default createStore({
     logout(state) {
       (state.user = ""), (state.business = ""), (state.token = ""), state; //Just sets the states to null, "logging out" the user or business
     },
+
+    
+
   },
   actions: {
     // User Login
@@ -153,6 +156,8 @@ export default createStore({
           .then((res) => res.json())
           .then((business) => {
             context.commit("setBusiness", business);
+            console.log(business);
+            context.dispatch("getRelatedProducts", business.business.b_id);
           });
         router.push("/home");
       }
@@ -234,10 +239,11 @@ export default createStore({
         .then((response) => response.json())
         .then((json) => context.commit("setUser", json));
     },
+
     // Business Functions
     // Get related products
-    getRelatedProducts: async (context) => {
-      fetch("http://localhost:3000/products/product", {
+    getRelatedProducts: async (context, id) => {
+      fetch("http://localhost:3000/products/product/" + id, {
         method: "GET",
         // body: JSON.stringify(products),
         headers: {
@@ -260,7 +266,20 @@ export default createStore({
         },
       })
         .then((res) => res.json())
-        .then((data) => context.commit("setProducts", data));
+        .then((data) => context.commit("setRelatedProducts", data));
+    },
+
+    // Edit a product
+    editProduct: async (context, product) => {
+      await fetch("http://localhost:3000/products/" + product.p_id, {
+        method: "PATCH",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => context.commit("setRelatedProducts", product.p_id));
     },
 
     // Delete product
@@ -269,7 +288,7 @@ export default createStore({
         method: "DELETE",
       })
         .then((response) => response.json())
-        .then((data) => context.commit("setUser"));
+        .then(() => context.commit("setRelatedProducts"));
     },
   },
   plugins: [createPersistedState()], //Allows user to stay logged in upon refreshing the page

@@ -1,7 +1,7 @@
 <template>
   <div class="ProductCard">
     <ProductCard
-      v-for="product in products"
+      v-for="product in relatedProducts"
       :key="product.p_id"
       :product="product"
     />
@@ -15,13 +15,13 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getRelatedProducts");
     // console.log(this.products.products.p_id);
   },
 
   computed: {
-    products() {
-      return this.$store.state.products;
+    relatedProducts() {
+      return this.$store.state.relatedProducts;
     },
     business() {
       return this.$store.state.business;
